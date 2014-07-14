@@ -1,0 +1,16 @@
+/*
+    Document   : public/assets/css/mainï¼Žcss
+    Created on : 2014-06-24 10:23 PM
+    Author     : stoned-code-warrior
+    Description:
+    Purpose of the stylesheet follows.
+    To change this template use Tools | Templates.
+*/
+
+root {
+    display: block;
+}
+
+*{
+    font-family: 'Indie Flower', cursive;
+}
