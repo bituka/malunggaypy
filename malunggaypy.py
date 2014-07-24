@@ -32,9 +32,38 @@ class MainPage(webapp2.RequestHandler):
 
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
-            
+
+class AdminPage(webapp2.RequestHandler):
+  def get(self):       
         
+    user = users.get_current_user()
+    if (user and user.nickname() == 'goryo.webdev'):
+
+    #  mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+      
+      template_values = {
+    #    'mainentries': mainentries,
+      }
+      
+      template = jinja_environment.get_template('admin.html')
+      self.response.out.write(template.render(template_values))
+    else:
+        
+      self.redirect(users.create_login_url(self.request.uri))
+
+        
+  def post(self):   
+    portfolio = Portfolio()
+    portfolio.title = self.request.get('title')   
+    portfolio.description = self.request.get('description')
+    portfolio.link_url = self.request.get('link_url')
+    image = self.request.get('img')
+    portfolio.image = db.Blob(image)
+    portfolio.put()
+    self.redirect('/admin')
+
 app = webapp2.WSGIApplication([('/', MainPage),
+                                ('/admin', AdminPage),
                                 ],
                                 debug=True)
                               
