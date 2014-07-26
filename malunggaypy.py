@@ -36,6 +36,7 @@ class MainPage(webapp2.RequestHandler):
 class AdminPage(webapp2.RequestHandler):
   def get(self):       
         
+    '''
     user = users.get_current_user()
     if (user and user.nickname() == 'goryo.webdev'):
 
@@ -44,13 +45,22 @@ class AdminPage(webapp2.RequestHandler):
       template_values = {
     #    'mainentries': mainentries,
       }
-      
-      template = jinja_environment.get_template('admin.html')
-      self.response.out.write(template.render(template_values))
+    '''
+    mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+    
+    template_values = {
+      'mainentries': mainentries,
+    }
+
+    template = jinja_environment.get_template('admin.html')
+    self.response.out.write(template.render(template_values))
+    
+
+    '''  
     else:
         
       self.redirect(users.create_login_url(self.request.uri))
-
+    '''
         
   def post(self):   
     portfolio = Portfolio()
