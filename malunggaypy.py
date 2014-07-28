@@ -15,11 +15,11 @@ jinja_environment = jinja2.Environment(
 
 #models
 class MainEntries(db.Model):
-  titulo = db.StringProperty(required=True)
-  kategorya = db.StringProperty(required=True) #pelikula, teleserye, palabas
-  letrato_link = db.StringProperty(required=True)
+  titulo = db.StringProperty(required=True, default="wala")
+#  kategorya = db.StringProperty(required=True) #pelikula, teleserye, palabas
+  letrato_link = db.StringProperty(required=True, default="wala")
 #  uri = db.StringProperty(required=True) 
-  date_created = db.DateTimeProperty(auto_now_add=True)
+  date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
 
 # controllers
@@ -63,13 +63,12 @@ class AdminPage(webapp2.RequestHandler):
     '''
         
   def post(self):   
-    portfolio = Portfolio()
-    portfolio.title = self.request.get('title')   
-    portfolio.description = self.request.get('description')
-    portfolio.link_url = self.request.get('link_url')
-    image = self.request.get('img')
-    portfolio.image = db.Blob(image)
-    portfolio.put()
+    mainentries = MainEntries()
+    mainentries.titulo = self.request.get('titulo')
+    mainentries.kategorya = self.request.get('kategorya')
+    mainentries.letrato_link = self.request.get('letrato_link')
+
+    mainentries.put()
     self.redirect('/admin')
 
 app = webapp2.WSGIApplication([('/', MainPage),

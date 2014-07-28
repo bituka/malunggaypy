@@ -2,15 +2,41 @@
 {% block titlecontent %}Admin Page{% endblock %}
 {% block bodycontent %}  
 
- <!-- /.container -->
+
+<!-- /.container -->
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Portfolio Item
-				<small>Explain Your Work</small>
-			</h1>
+			<h1 class="page-header">Admin Page</h1>
 		</div>
+
 	</div>
+	<!-- TODO --> 
+	<div class="col-lg-4">
+		<h2> Menu	<h2>
+			<h4 class="page-header">Add Entry</h4>
+			<h4 class="page-header">View/Edit Entries</h4>
+		</div>
+
+		<div class="col-lg-8">
+			<form action="/admin" enctype="multipart/form-data" method="post">
+				<div><label>Titulo:</label><br /><input size="80" type="text" name="titulo" maxlength="200" /></div>
+				<div><label>Kategorya:</label><br />
+
+					<select name="kategorya">
+						<option value="pelikula" selected>Pelikula</option>
+						<option value="palabas">Palabas</option>
+						<option value="teleserye">Teleserye</option>
+					</select>
+
+				</div>
+
+				<div><label>Letrato Link:</label><br /><input type="text" name="letrato_link" maxlength="400" size="90" /></div>
+				<br>
+				<input type="submit" value="submit">
+			</form>
+		</div>
+    <!--
 	<div class="row">
 
 		<div class="col-lg-12">
@@ -47,8 +73,8 @@
 			</a>
 		</div>
 	</div>
-
+-->
 </div>
-    <!-- /.container -->
+<!-- /.container -->
 
 {% endblock %}
