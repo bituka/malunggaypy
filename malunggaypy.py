@@ -63,6 +63,7 @@ class AdminPage(webapp2.RequestHandler):
     '''
         
   def post(self):   
+    
     mainentries = MainEntries()
     mainentries.titulo = self.request.get('titulo')
     mainentries.kategorya = self.request.get('kategorya')
@@ -71,8 +72,49 @@ class AdminPage(webapp2.RequestHandler):
     mainentries.put()
     self.redirect('/admin')
 
+
+class EditEntriesPage(webapp2.RequestHandler):
+  def get(self):       
+        
+    '''
+    user = users.get_current_user()
+    if (user and user.nickname() == 'goryo.webdev'):
+
+    #  mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+      
+      template_values = {
+    #    'mainentries': mainentries,
+      }
+    '''
+    mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+    
+    template_values = {
+      'mainentries': mainentries,
+    }
+
+    template = jinja_environment.get_template('editentries.html')
+    self.response.out.write(template.render(template_values))
+    
+    
+    '''  
+    else:
+        
+      self.redirect(users.create_login_url(self.request.uri))
+    '''
+        
+  def post(self):   
+    mainentries = MainEntries()
+    mainentries.titulo = self.request.get('titulo')
+    mainentries.kategorya = self.request.get('kategorya')
+    mainentries.letrato_link = self.request.get('letrato_link')
+
+    mainentries.put()
+    self.redirect('/admin')
+
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
+                                 ('/editentries', EditEntriesPage),
                                 ],
                                 debug=True)
                               
