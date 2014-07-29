@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% extends "_adminbase.html" %}
 {% block titlecontent %}Admin Page{% endblock %}
 {% block bodycontent %}  
 
@@ -14,8 +15,8 @@
 	<!-- TODO --> 
 	<div class="col-lg-4">
 		<h2> Menu	<h2>
-			<h4 class="page-header">Add Entry</h4>
-			<h4 class="page-header">View/Edit Entries</h4>
+			<h4 class="page-header"><a href="/admin">Add Entry</a></h4>
+			<h4 class="page-header"><a href="/editentries">View/Edit Entries</a></h4>
 		</div>
 
 		<div class="col-lg-8">

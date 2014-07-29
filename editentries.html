@@ -24,22 +24,18 @@ endblock %} {% block bodycontent %}
 				<thead>
 
 					<tr>
-						<th>Transaction Date</th>
-						<th>Amount</th>
-						<th>Description</th>
-						<th>Notes</th>
-						<th>Type</th>
+						<th>Titulo</th>
+						<th>Kategorya</th>
+						<th>Letrato Link</th>
 					</tr>
 
 				</thead>
 				<tbody>
 					{% for mainentry in mainentries %}
 					<tr class="odd gradeX">
-						<td>{{ balance.transaction_date }}</td>
-						<td>{{ balance.amt }}</td>
-						<td>{{ balance.description }}</td>
-						<td>{{ balance.notes }}</td>
-						<td>{{ balance.ttype }}</td>
+						<td>{{ mainentry.titulo }}</td>
+						<td>{{ mainentry.kategorya }}</td>
+						<td>{{ mainentry.letrato_link }}</td>
 					</tr>
 					{% endfor %}
 
