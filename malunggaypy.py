@@ -16,7 +16,7 @@ jinja_environment = jinja2.Environment(
 #models
 class MainEntries(db.Model):
   titulo = db.StringProperty(required=True, default="wala")
-#  kategorya = db.StringProperty(required=True) #pelikula, teleserye, palabas
+  kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
   letrato_link = db.StringProperty(required=True, default="wala")
 #  uri = db.StringProperty(required=True) 
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
@@ -73,7 +73,7 @@ class AdminPage(webapp2.RequestHandler):
     self.redirect('/admin')
 
 
-class EditEntriesPage(webapp2.RequestHandler):
+class EditDeleteEntriesPage(webapp2.RequestHandler):
   def get(self):       
         
     '''
@@ -112,9 +112,22 @@ class EditEntriesPage(webapp2.RequestHandler):
     self.redirect('/admin')
 
 
+class EditSingleEntry(object):
+  def get(self):       
+  
+    template_values = {
+      
+    }
+
+    template = jinja_environment.get_template('editsingleentry.html')
+    self.response.out.write(template.render(template_values))
+    
+
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
-                                 ('/editentries', EditEntriesPage),
+                                ('/editdeleteentries', EditDeleteEntriesPage),
+                              #  ('/deletemainentries', DeleteMainEntries),
                                 ],
                                 debug=True)
                               
