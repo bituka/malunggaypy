@@ -92,7 +92,7 @@ class EditDeleteEntriesPage(webapp2.RequestHandler):
       'mainentries': mainentries,
     }
 
-    template = jinja_environment.get_template('editentries.html')
+    template = jinja_environment.get_template('editdeleteentries.html')
     self.response.out.write(template.render(template_values))
     
     
@@ -112,11 +112,13 @@ class EditDeleteEntriesPage(webapp2.RequestHandler):
     self.redirect('/admin')
 
 
-class EditSingleEntry(object):
+class EditSingleEntry(webapp2.RequestHandler):
   def get(self):       
-  
+    
+    mainentry = db.get(self.request.get('id'))
+
     template_values = {
-      
+      'mainentry' : mainentry
     }
 
     template = jinja_environment.get_template('editsingleentry.html')
@@ -127,6 +129,7 @@ class EditSingleEntry(object):
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
                                 ('/editdeleteentries', EditDeleteEntriesPage),
+                                ('/editsingleentry', EditSingleEntry),
                               #  ('/deletemainentries', DeleteMainEntries),
                                 ],
                                 debug=True)
