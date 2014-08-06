@@ -26,6 +26,8 @@ class MainEntries(db.Model):
 class MainPage(webapp2.RequestHandler):
   def get(self):       
     
+    mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+
     template_values = {
       
     }
@@ -124,6 +126,21 @@ class EditSingleEntry(webapp2.RequestHandler):
     template = jinja_environment.get_template('editsingleentry.html')
     self.response.out.write(template.render(template_values))
     
+
+  def post(self):   
+    mainentries = db.get(self.request.get('id'))
+    mainentries.titulo = self.request.get('titulo')
+    mainentries.kategorya = self.request.get('kategorya')
+    mainentries.letrato_link = self.request.get('letrato_link')
+    mainentries.put()
+    self.redirect('/editdeleteentries')
+
+
+class DeletePortfolio(webapp2.RequestHandler):
+    def post(self):
+        portfolio = db.get(self.request.get('id'))
+        portfolio.delete()
+        self.redirect('/editdeleteentries')   
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
