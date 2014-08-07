@@ -32,8 +32,13 @@
 						<td>{{ mainentry.titulo }}</td>
 						<td>{{ mainentry.kategorya }}</td>
 						<td>{{ mainentry.letrato_link }}</td>
-			            <td><a href="/editsingleentry?id={{mainentry.key()}}" class="btn">edit</a></td>
-			            <td><a href="/deletemainentry">delete</a></td>
+			            <td><a href="/editsingleentry?id={{mainentry.key()}}"><input type="button" class="btn" value="edit"></a></td>
+
+			            <td><form action="/deletemainentry" method="POST">
+			            	<input type="hidden" name="id" value="{{mainentry.key()}}" />
+			            	<input class="btn" type="submit" value="delete">
+			            </form></td>
+
 					</tr>
 					{% endfor %}
 

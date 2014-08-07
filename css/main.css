@@ -14,3 +14,7 @@ root {
 body{
     font-family: 'Indie Flower', cursive;
 }
+
+.navbar-brand{
+	padding-top: initial;
+}

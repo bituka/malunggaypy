@@ -136,10 +136,10 @@ class EditSingleEntry(webapp2.RequestHandler):
     self.redirect('/editdeleteentries')
 
 
-class DeletePortfolio(webapp2.RequestHandler):
+class DeleteMainEntry(webapp2.RequestHandler):
     def post(self):
-        portfolio = db.get(self.request.get('id'))
-        portfolio.delete()
+        mainentry = db.get(self.request.get('id'))
+        mainentry.delete()
         self.redirect('/editdeleteentries')   
 
 
@@ -147,7 +147,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
                                 ('/editdeleteentries', EditDeleteEntriesPage),
                                 ('/editsingleentry', EditSingleEntry),
-                              #  ('/deletemainentries', DeleteMainEntries),
+                                ('/deletemainentry', DeleteMainEntry),
                                 ],
                                 debug=True)
                               
