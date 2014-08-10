@@ -23,13 +23,14 @@ class MainEntries(db.Model):
   date_updated = db.DateProperty()
 
 # controllers
+# TODO display entries to public folder
 class MainPage(webapp2.RequestHandler):
   def get(self):       
     
     mainentries = db.GqlQuery("SELECT * FROM MainEntries")
 
     template_values = {
-      
+      'mainentries': mainentries,
     }
 
     template = jinja_environment.get_template('index.html')
