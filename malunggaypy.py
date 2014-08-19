@@ -18,14 +18,14 @@ class MainEntries(db.Model):
   titulo = db.StringProperty(required=True, default="wala")
   kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
   letrato_link = db.StringProperty(required=True, default="wala")
-#  uri = db.StringProperty(required=True) 
+#  uri = db.StringProperty(required=True)
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
 
 # controllers
 # TODO display entries to public folder
 class MainPage(webapp2.RequestHandler):
-  def get(self):       
+  def get(self):
     
     mainentries = db.GqlQuery("SELECT * FROM MainEntries")
 
@@ -37,7 +37,7 @@ class MainPage(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
 
 class AdminPage(webapp2.RequestHandler):
-  def get(self):       
+  def get(self):
         
     '''
     user = users.get_current_user()
@@ -59,13 +59,13 @@ class AdminPage(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
     
 
-    '''  
+    '''
     else:
         
       self.redirect(users.create_login_url(self.request.uri))
     '''
         
-  def post(self):   
+  def post(self):
     
     mainentries = MainEntries()
     mainentries.titulo = self.request.get('titulo')
@@ -77,7 +77,7 @@ class AdminPage(webapp2.RequestHandler):
 
 
 class EditDeleteEntriesPage(webapp2.RequestHandler):
-  def get(self):       
+  def get(self):
         
     '''
     user = users.get_current_user()
@@ -99,13 +99,13 @@ class EditDeleteEntriesPage(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
     
     
-    '''  
+    '''
     else:
         
       self.redirect(users.create_login_url(self.request.uri))
     '''
         
-  def post(self):   
+  def post(self):
     mainentries = MainEntries()
     mainentries.titulo = self.request.get('titulo')
     mainentries.kategorya = self.request.get('kategorya')
@@ -116,7 +116,7 @@ class EditDeleteEntriesPage(webapp2.RequestHandler):
 
 
 class EditSingleEntry(webapp2.RequestHandler):
-  def get(self):       
+  def get(self):
     
     mainentry = db.get(self.request.get('id'))
 
@@ -128,7 +128,7 @@ class EditSingleEntry(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
     
 
-  def post(self):   
+  def post(self):
     mainentries = db.get(self.request.get('id'))
     mainentries.titulo = self.request.get('titulo')
     mainentries.kategorya = self.request.get('kategorya')
@@ -138,17 +138,31 @@ class EditSingleEntry(webapp2.RequestHandler):
 
 
 class DeleteMainEntry(webapp2.RequestHandler):
-    def post(self):
-        mainentry = db.get(self.request.get('id'))
-        mainentry.delete()
-        self.redirect('/editdeleteentries')   
+  def post(self):
+    mainentry = db.get(self.request.get('id'))
+    mainentry.delete()
+    self.redirect('/editdeleteentries')
 
+
+#For viewing single entry - this is public
+class ViewSingleEntry(webapp2.RequestHandler):
+  def get(self):
+    
+    mainentry = db.get(self.request.get('id'))
+
+    template_values = {
+      'mainentry' : mainentry
+    }
+
+    template = jinja_environment.get_template('viewsingleentry.html')
+    self.response.out.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
                                 ('/editdeleteentries', EditDeleteEntriesPage),
                                 ('/editsingleentry', EditSingleEntry),
                                 ('/deletemainentry', DeleteMainEntry),
+                                ('/viewsingleentry', ViewSingleEntry),
                                 ],
                                 debug=True)
                               

@@ -43,10 +43,15 @@
         </div>
         <div class="row">    
             {% for mainentry in mainentries %}
-            <div class="col-sm-3 col-xs-6 pelikula-entries">
+            <div class="col-sm-3 col-xs-6 malunggaypy-entries">
+                <a href="/viewsingleentry?id={{mainentry.key()}}">
                 <h4>{{ mainentry.titulo }}</h4>
-                <a href="#">
-                    <img height="300" width="500" alt="malunggay-photos" class="img-responsive portfolio-item" src="{{ mainentry.letrato_link }}">
+                
+                <img height="300" width="500" alt="malunggay-photos" class="img-responsive portfolio-item" src="{{ mainentry.letrato_link }}">
+                
+                <a href="/viewsingleentry?id={{mainentry.key()}}#disqus_thread" data-disqus-identifier="{{mainentry.key()}}">
+                    
+                </a>
                 </a>
             </div>
             {% endfor %}
