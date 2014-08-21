@@ -27,7 +27,7 @@ class MainEntries(db.Model):
 class MainPage(webapp2.RequestHandler):
   def get(self):
     
-    mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+    mainentries = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries ORDER BY date_created DESC LIMIT 30")
 
     template_values = {
       'mainentries': mainentries,
