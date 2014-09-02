@@ -19,3 +19,19 @@ body{
 	padding-top: initial;
 }
 
+#disqus_thread{
+     position: relative;
+}
+#disqus_thread:after{
+     content: "";
+     display: block;
+     height: 165px;
+     width: 100%;
+     position: absolute;
+     bottom: 0px;
+     background:white;
+}
+
+.fa-search:before {
+content: "\f002";
+}
