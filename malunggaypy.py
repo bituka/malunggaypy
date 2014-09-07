@@ -157,12 +157,23 @@ class ViewSingleEntry(webapp2.RequestHandler):
     template = jinja_environment.get_template('viewsingleentry.html')
     self.response.out.write(template.render(template_values))
 
+# TODO
+class SearchEntries(webapp2.RequestHandler):
+
+  def get(self):  
+    q = (self.request.GET['q']).lower() 
+    results=models.MainEntries.all().fetch(100) 
+    for records in result:
+      print records+"|"+records+"\n"
+    
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
                                 ('/editdeleteentries', EditDeleteEntriesPage),
                                 ('/editsingleentry', EditSingleEntry),
                                 ('/deletemainentry', DeleteMainEntry),
                                 ('/viewsingleentry', ViewSingleEntry),
+                                ('/searchentries', SearchEntries),
                                 ],
                                 debug=True)
                               
