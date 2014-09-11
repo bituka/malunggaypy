@@ -3454,12 +3454,12 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
     /*
     background-color:#222;
     border-color:#080808;
-    */
+    
     
     background-color: #090754;
     background-image: -webkit-linear-gradient(top, #090754, #420c17);
     background-image:         linear-gradient(to bottom, #090754, #420c17);
-
+    */
 
 }
 .navbar-inverse .navbar-brand {
@@ -3476,7 +3476,7 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
     color:#999
 }
 .navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
-    color:#fff;
+    color:black;
     background-color:transparent
 }
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {

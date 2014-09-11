@@ -15,26 +15,29 @@ jinja_environment = jinja2.Environment(
 
 #models
 class MainEntries(db.Model):
-  titulo = db.StringProperty(required=True)
-  kategorya = db.StringProperty(required=True) #pelikula, teleserye, palabas
-  letrato_link = db.StringProperty(required=True)
-#  uri = db.StringProperty(required=True) 
-  date_created = db.DateTimeProperty(auto_now_add=True)
+  titulo = db.StringProperty(required=True, default="wala")
+  kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
+  letrato_link = db.StringProperty(required=True, default="wala")
+#  uri = db.StringProperty(required=True)
+  date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
 
 # controllers
+# TODO display entries to public folder
 class MainPage(webapp2.RequestHandler):
-  def get(self):       
+  def get(self):
     
+    mainentries = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries ORDER BY date_created DESC LIMIT 30")
+
     template_values = {
-      
+      'mainentries': mainentries,
     }
 
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render(template_values))
 
 class AdminPage(webapp2.RequestHandler):
-  def get(self):       
+  def get(self):
         
     '''
     user = users.get_current_user()
@@ -56,24 +59,121 @@ class AdminPage(webapp2.RequestHandler):
     self.response.out.write(template.render(template_values))
     
 
-    '''  
+    '''
     else:
         
       self.redirect(users.create_login_url(self.request.uri))
     '''
         
-  def post(self):   
-    portfolio = Portfolio()
-    portfolio.title = self.request.get('title')   
-    portfolio.description = self.request.get('description')
-    portfolio.link_url = self.request.get('link_url')
-    image = self.request.get('img')
-    portfolio.image = db.Blob(image)
-    portfolio.put()
+  def post(self):
+    
+    mainentries = MainEntries()
+    mainentries.titulo = self.request.get('titulo')
+    mainentries.kategorya = self.request.get('kategorya')
+    mainentries.letrato_link = self.request.get('letrato_link')
+
+    mainentries.put()
     self.redirect('/admin')
+
+
+class EditDeleteEntriesPage(webapp2.RequestHandler):
+  def get(self):
+        
+    '''
+    user = users.get_current_user()
+    if (user and user.nickname() == 'goryo.webdev'):
+
+    #  mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+      
+      template_values = {
+    #    'mainentries': mainentries,
+      }
+    '''
+    mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+    
+    template_values = {
+      'mainentries': mainentries,
+    }
+
+    template = jinja_environment.get_template('editdeleteentries.html')
+    self.response.out.write(template.render(template_values))
+    
+    
+    '''
+    else:
+        
+      self.redirect(users.create_login_url(self.request.uri))
+    '''
+        
+  def post(self):
+    mainentries = MainEntries()
+    mainentries.titulo = self.request.get('titulo')
+    mainentries.kategorya = self.request.get('kategorya')
+    mainentries.letrato_link = self.request.get('letrato_link')
+
+    mainentries.put()
+    self.redirect('/admin')
+
+
+class EditSingleEntry(webapp2.RequestHandler):
+  def get(self):
+    
+    mainentry = db.get(self.request.get('id'))
+
+    template_values = {
+      'mainentry' : mainentry
+    }
+
+    template = jinja_environment.get_template('editsingleentry.html')
+    self.response.out.write(template.render(template_values))
+    
+
+  def post(self):
+    mainentries = db.get(self.request.get('id'))
+    mainentries.titulo = self.request.get('titulo')
+    mainentries.kategorya = self.request.get('kategorya')
+    mainentries.letrato_link = self.request.get('letrato_link')
+    mainentries.put()
+    self.redirect('/editdeleteentries')
+
+
+class DeleteMainEntry(webapp2.RequestHandler):
+  def post(self):
+    mainentry = db.get(self.request.get('id'))
+    mainentry.delete()
+    self.redirect('/editdeleteentries')
+
+
+#For viewing single entry - this is public
+class ViewSingleEntry(webapp2.RequestHandler):
+  def get(self):
+    
+    mainentry = db.get(self.request.get('id'))
+
+    template_values = {
+      'mainentry' : mainentry
+    }
+
+    template = jinja_environment.get_template('viewsingleentry.html')
+    self.response.out.write(template.render(template_values))
+
+# TODO
+class SearchEntries(webapp2.RequestHandler):
+
+  def get(self):  
+    q = (self.request.GET['q']).lower() 
+    results=models.MainEntries.all().fetch(100) 
+    for records in result:
+      print records+"|"+records+"\n"
+    
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
+                                ('/editdeleteentries', EditDeleteEntriesPage),
+                                ('/editsingleentry', EditSingleEntry),
+                                ('/deletemainentry', DeleteMainEntry),
+                                ('/viewsingleentry', ViewSingleEntry),
+                                ('/searchentries', SearchEntries),
                                 ],
                                 debug=True)
                               
