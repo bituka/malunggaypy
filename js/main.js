@@ -15,15 +15,15 @@ $(document).ready(function() {
 
 $(function () {
 	$('#searchentries').autocomplete({
-     //   source: "/searchentries",
-     	source:[ "ass ddd", "Choice2", "bbbtestsss", "tae MO Pau" ],
+        source: "/searchentries",
+    // 	source:[ "ass ddd", "Choice2", "bbbtestsss", "tae MO Pau" ],
         minLength: 2,
-    //    select: function(event, ui) {
-    //        var url = ui.item.id;
-    //        if(url != '#') {
-    //            location.href = '/blog/' + url;
-     //       }
-     //   },
+        select: function(event, ui) {
+            var url = ui.item.id;
+            if(url != '#') {
+                location.href = '/searchentries/' + url;
+            }
+        },
  
     //    html: true, // optional (jquery.ui.autocomplete.html.js required)
  

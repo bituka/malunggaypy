@@ -161,9 +161,16 @@ class ViewSingleEntry(webapp2.RequestHandler):
 class SearchEntries(webapp2.RequestHandler):
 
   def get(self):  
-    q = (self.request.GET['q']).lower() 
-    results=models.MainEntries.all().fetch(100) 
-    for records in result:
+    q = (self.request.GET['term']).lower() 
+    query = db.GqlQuery("SELECT * FROM MainEntries")
+    # cursor = self.request.get('cursor')
+    # if cursor: query.with_cursor(cursor)
+    results = query.fetch(100)
+# cursor = query.cursor()
+  #  results=models.MainEntries.all().fetch(100) 
+  #  results=models.MainEntries.all().fetch(100) 
+
+    for records in results:
       print records+"|"+records+"\n"
     
 
