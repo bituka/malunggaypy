@@ -5,6 +5,7 @@ import cgi
 import datetime
 import urllib
 import sys
+import json
 
 from google.appengine.ext import db
 from google.appengine.api import images
@@ -28,9 +29,10 @@ class MainPage(webapp2.RequestHandler):
   def get(self):
     
     mainentries = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries ORDER BY date_created DESC LIMIT 30")
-
+    
     template_values = {
       'mainentries': mainentries,
+    #  'test': records
     }
 
     template = jinja_environment.get_template('index.html')
@@ -163,6 +165,13 @@ class SearchEntries(webapp2.RequestHandler):
   #TODO return array
 
   def get(self):  
+    
+    
+    data = ['cat','dog','bird', 'wolf']
+    data = json.dumps(data)         
+    
+    self.response.out.write(data)
+
   #  term = self.request.get('term') #(self.request.GET['term']).lower() 
     #query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo = term")
     # query = MainEntries.gql("WHERE titulo = str(term)")
@@ -177,14 +186,13 @@ class SearchEntries(webapp2.RequestHandler):
     # cursor = self.request.get('cursor')
     # if cursor: query.with_cursor(cursor)
   #  results = query.fetch(100)
-# cursor = query.cursor()
+  # cursor = query.cursor()
   #  results=models.MainEntries.all().fetch(100) 
   #  results=models.MainEntries.all().fetch(100) 
 
   #  for records in results:
   #    self.response.out.write(records.titulo)
       #print records.titulo+"|"+records.titulo+"\n"
-      
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),

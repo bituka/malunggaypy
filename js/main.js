@@ -30,13 +30,20 @@ $(function () {
         source: "/searchentries",
     // 	source:[ "ass ddd", "Choice2", "bbbtestsss", "tae MO Pau" ],
         minLength: 2,
-    /*    select: function(event, ui) {
+        select: function( event, ui ) {
+        log( ui.item ?
+          "Selected: " + ui.item.value + " aka " + ui.item.id :
+          "Nothing selected, input was " + this.value );
+      }
+      
+      /*
+        select: function(event, ui) {
             var url = ui.item.id;
             if(url != '#') {
                 location.href = '/searchentries/' + url;
             }
         },
-    */
+        */
     //    html: true, // optional (jquery.ui.autocomplete.html.js required)
  
       // optional (if other layers overlap autocomplete list)
