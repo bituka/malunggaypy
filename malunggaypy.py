@@ -160,19 +160,31 @@ class ViewSingleEntry(webapp2.RequestHandler):
 # TODO
 class SearchEntries(webapp2.RequestHandler):
 
+  #TODO return array
+
   def get(self):  
-    q = (self.request.GET['term']).lower() 
-    query = db.GqlQuery("SELECT * FROM MainEntries")
+  #  term = self.request.get('term') #(self.request.GET['term']).lower() 
+    #query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo = term")
+    # query = MainEntries.gql("WHERE titulo = str(term)")
+  #  self.response.out.write(term)
+
+    # query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo=:1 ", term)
+
+  #  print query_id
+
+    # query = db.GqlQuery("SELECT titulo FROM MainEntries WHERE id=:1 ", query_id)
+  #  query = db.GqlQuery("SELECT * FROM MainEntries")
     # cursor = self.request.get('cursor')
     # if cursor: query.with_cursor(cursor)
-    results = query.fetch(100)
+  #  results = query.fetch(100)
 # cursor = query.cursor()
   #  results=models.MainEntries.all().fetch(100) 
   #  results=models.MainEntries.all().fetch(100) 
 
-    for records in results:
-      print records+"|"+records+"\n"
-    
+  #  for records in results:
+  #    self.response.out.write(records.titulo)
+      #print records.titulo+"|"+records.titulo+"\n"
+      
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
