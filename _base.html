@@ -81,9 +81,10 @@
         <div class="col-lg-3">  </div>
         <div class="col-lg-6">    
             <!-- SEARCH -->
+            <form action="/sign" method="post">
             <div class="input-group custom-search-form">
+                
                 <input name="term" type="text" id="searchentries" class="form-control" placeholder="Maghanap...">
-               
                 <span class="input-group-btn">
                     
                     <button class="btn btn-default" type="button">
@@ -91,12 +92,10 @@
                     </button>
                 
                 </span>
+                
             </div>
             <!-- END SEARCH -->
-            <div class="ui-widget" style="margin-top:2em; font-family:Arial">
-                Result:
-                <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-            </div>
+           </form>
         </div>
 </div>
 

@@ -166,14 +166,14 @@ class SearchEntries(webapp2.RequestHandler):
 
   def get(self):  
     
-    
+    '''
     data = ['cat','dog','bird', 'wolf']
     data = json.dumps(data)         
     
     self.response.out.write(data)
-
-  #  term = self.request.get('term') #(self.request.GET['term']).lower() 
-    #query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo = term")
+    '''
+    term = self.request.get('term') #(self.request.GET['term']).lower() 
+    query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo = term")
     # query = MainEntries.gql("WHERE titulo = str(term)")
   #  self.response.out.write(term)
 

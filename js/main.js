@@ -25,7 +25,7 @@ $(function () {
     });
     */
 
-    
+    /*
 	$('#searchentries').autocomplete({
         source: "/searchentries",
     // 	source:[ "ass ddd", "Choice2", "bbbtestsss", "tae MO Pau" ],
@@ -35,7 +35,7 @@ $(function () {
           "Selected: " + ui.item.value + " aka " + ui.item.id :
           "Nothing selected, input was " + this.value );
       }
-      
+    */  
       /*
         select: function(event, ui) {
             var url = ui.item.id;
