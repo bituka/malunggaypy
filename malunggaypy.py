@@ -10,6 +10,7 @@ import json
 from google.appengine.ext import db
 from google.appengine.api import images
 from google.appengine.api import users
+from google.appengine.api import search
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -159,10 +160,8 @@ class ViewSingleEntry(webapp2.RequestHandler):
     template = jinja_environment.get_template('viewsingleentry.html')
     self.response.out.write(template.render(template_values))
 
-# TODO
-class SearchEntries(webapp2.RequestHandler):
 
-  #TODO return array
+class SearchEntries(webapp2.RequestHandler):
 
   def get(self):  
     
@@ -171,28 +170,46 @@ class SearchEntries(webapp2.RequestHandler):
     data = json.dumps(data)         
     
     self.response.out.write(data)
-    '''
+    
     term = self.request.get('term') #(self.request.GET['term']).lower() 
     query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo = term")
+    '''
     # query = MainEntries.gql("WHERE titulo = str(term)")
-  #  self.response.out.write(term)
+    #  self.response.out.write(term)
 
     # query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo=:1 ", term)
 
-  #  print query_id
+    #  print query_id
 
     # query = db.GqlQuery("SELECT titulo FROM MainEntries WHERE id=:1 ", query_id)
-  #  query = db.GqlQuery("SELECT * FROM MainEntries")
-    # cursor = self.request.get('cursor')
-    # if cursor: query.with_cursor(cursor)
-  #  results = query.fetch(100)
-  # cursor = query.cursor()
-  #  results=models.MainEntries.all().fetch(100) 
-  #  results=models.MainEntries.all().fetch(100) 
+    #  query = db.GqlQuery("SELECT * FROM MainEntries")
+      # cursor = self.request.get('cursor')
+      # if cursor: query.with_cursor(cursor)
+    #  results = query.fetch(100)
+    # cursor = query.cursor()
+    #  results=models.MainEntries.all().fetch(100) 
+    #  results=models.MainEntries.all().fetch(100) 
 
-  #  for records in results:
-  #    self.response.out.write(records.titulo)
-      #print records.titulo+"|"+records.titulo+"\n"
+    #  for records in results:
+    #    self.response.out.write(records.titulo)
+        #print records.titulo+"|"+records.titulo+"\n"
+    #TODO
+    def post(self):  
+
+      query = self.request.get('term') 
+
+      try:
+        query_string=querystring,
+        options=search.QueryOptions(
+          limit=doc_limit))
+        for doc in search_results:
+          doc_id = doc.doc_id
+          fields = doc.fields
+          # etc.
+      except search.Error:
+
+
+
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
