@@ -6,11 +6,11 @@ import datetime
 import urllib
 import sys
 import json
+import tzsearch
 
 from google.appengine.ext import db
 from google.appengine.api import images
 from google.appengine.api import users
-from google.appengine.api import search
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -23,6 +23,10 @@ class MainEntries(db.Model):
 #  uri = db.StringProperty(required=True)
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
+
+class SomeModel(tzsearch.SearchableModel):
+  some_string = db.StringProperty()
+  more_string = db.StringProperty()
 
 # controllers
 # TODO display entries to public folder
@@ -194,19 +198,20 @@ class SearchEntries(webapp2.RequestHandler):
     #    self.response.out.write(records.titulo)
         #print records.titulo+"|"+records.titulo+"\n"
     #TODO
-    def post(self):  
+    def post(self): 
 
-      query = self.request.get('term') 
+      whatever = self.request.get('term') 
 
-      try:
-        query_string=querystring,
-        options=search.QueryOptions(
-          limit=doc_limit))
-        for doc in search_results:
-          doc_id = doc.doc_id
-          fields = doc.fields
-          # etc.
-      except search.Error:
+      SomeModel.all().search(whatever) 
+
+      # try:
+      #   query_string=querystring,
+      #   options=search.QueryOptions(limit=doc_limit))
+      #   for doc in search_results:
+      #     doc_id = doc.doc_id
+      #     fields = doc.fields
+      #     # etc.
+      # except search.Error:
 
 
 
