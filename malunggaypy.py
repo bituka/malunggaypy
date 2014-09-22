@@ -24,9 +24,12 @@ class MainEntries(db.Model):
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
 
-class SomeModel(tzsearch.SearchableModel):
-  some_string = db.StringProperty()
-  more_string = db.StringProperty()
+class MainEntries(tzsearch.SearchableModel):
+  titulo = db.StringProperty()
+  kategorya = db.StringProperty()
+  letrato_link = db.StringProperty
+
+
 
 # controllers
 # TODO display entries to public folder
@@ -167,51 +170,32 @@ class ViewSingleEntry(webapp2.RequestHandler):
 
 class SearchEntries(webapp2.RequestHandler):
 
-  def get(self):  
-    
-    '''
-    data = ['cat','dog','bird', 'wolf']
-    data = json.dumps(data)         
-    
-    self.response.out.write(data)
-    
-    term = self.request.get('term') #(self.request.GET['term']).lower() 
-    query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo = term")
-    '''
-    # query = MainEntries.gql("WHERE titulo = str(term)")
-    #  self.response.out.write(term)
-
-    # query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo=:1 ", term)
-
-    #  print query_id
-
-    # query = db.GqlQuery("SELECT titulo FROM MainEntries WHERE id=:1 ", query_id)
-    #  query = db.GqlQuery("SELECT * FROM MainEntries")
-      # cursor = self.request.get('cursor')
-      # if cursor: query.with_cursor(cursor)
-    #  results = query.fetch(100)
-    # cursor = query.cursor()
-    #  results=models.MainEntries.all().fetch(100) 
-    #  results=models.MainEntries.all().fetch(100) 
-
-    #  for records in results:
-    #    self.response.out.write(records.titulo)
-        #print records.titulo+"|"+records.titulo+"\n"
-    #TODO
     def post(self): 
 
       whatever = self.request.get('term') 
 
-      SomeModel.all().search(whatever) 
+      self.response.out.write(whatever)
 
-      # try:
-      #   query_string=querystring,
-      #   options=search.QueryOptions(limit=doc_limit))
-      #   for doc in search_results:
-      #     doc_id = doc.doc_id
-      #     fields = doc.fields
-      #     # etc.
-      # except search.Error:
+      results = MainEntries.all().search(whatever).fetch(20)
+
+      '''
+      # Testing results
+      if results is not None:
+        for resulta in results:
+          self.response.out.write(resulta.titulo)
+          self.response.out.write(whatever)
+      else:
+        print('results is None')
+      '''
+
+      template_values = {
+      'results' : results
+      }
+
+      template = jinja_environment.get_template('search.html')
+      self.response.out.write(template.render(template_values))
+
+
 
 
 

@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+{% block titlecontent %}Search Page{% endblock %}
+{% block bodycontent %}  
+
+ <!-- /.container -->
+    <div class="container">
+        
+        
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Sana may nahanap ka.</h3>
+            </div>
+           
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-1"> </div>
+            <div class="col-lg-11">
+                
+                <div class="col-lg-10">
+                    <h3 class="page-header">test</h3>
+                </div>
+                <div class="col-lg-10">
+                    <h3 class="page-header">test</h3>
+                </div>
+            </div>
+           
+
+        </div>
+
+        <div class="row">    
+            {% for mainentry in mainentries %}
+            <div class="col-sm-3 col-xs-6 malunggaypy-entries">
+                <a href="/viewsingleentry?id={{mainentry.key()}}">
+                <h4>{{ mainentry.titulo }}</h4>
+                
+                <img height="300" width="500" alt="malunggay-photos" class="img-responsive portfolio-item" src="{{ mainentry.letrato_link }}">
+                
+                <a href="/viewsingleentry?id={{mainentry.key()}}#disqus_thread" data-disqus-identifier="{{mainentry.key()}}">
+                    
+                </a>
+                </a>
+            </div>
+            {% endfor %}
+
+            
+        </div>
+        
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

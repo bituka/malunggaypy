@@ -196,7 +196,7 @@ class SearchableModel(db.Model):
 
   Override SearchableProperties() to define properties to index and/or multiple
   indexes (see the file's comment).
-  ""
+  """
 
   @classmethod
   def SearchableProperties(cls):
@@ -208,14 +208,14 @@ class SearchableModel(db.Model):
     _properties = None
 
     def search(self, search_query, properties=ALL_PROPERTIES):
-      """Adds a full text search to this query.
+      '''Adds a full text search to this query.
 
       Args:
         search_query, a string containing the full text search query.
 
       Returns:
         self
-      """
+      '''
       self._search_query = search_query
       self._properties = properties
 
@@ -256,3 +256,36 @@ class SearchableModel(db.Model):
     query = SearchableModel.Query(cls)
     query._searchable_properties = cls.SearchableProperties()
     return query
+
+
+# def get(self):  
+    
+    '''
+    data = ['cat','dog','bird', 'wolf']
+    data = json.dumps(data)         
+    
+    self.response.out.write(data)
+    
+    term = self.request.get('term') #(self.request.GET['term']).lower() 
+    query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo = term")
+    '''
+    # query = MainEntries.gql("WHERE titulo = str(term)")
+    #  self.response.out.write(term)
+
+    # query = db.GqlQuery("SELECT * FROM MainEntries WHERE titulo=:1 ", term)
+
+    #  print query_id
+
+    # query = db.GqlQuery("SELECT titulo FROM MainEntries WHERE id=:1 ", query_id)
+    #  query = db.GqlQuery("SELECT * FROM MainEntries")
+      # cursor = self.request.get('cursor')
+      # if cursor: query.with_cursor(cursor)
+    #  results = query.fetch(100)
+    # cursor = query.cursor()
+    #  results=models.MainEntries.all().fetch(100) 
+    #  results=models.MainEntries.all().fetch(100) 
+
+    #  for records in results:
+    #    self.response.out.write(records.titulo)
+        #print records.titulo+"|"+records.titulo+"\n"
+    #TODO
