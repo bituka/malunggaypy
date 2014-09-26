@@ -27,7 +27,7 @@ class MainEntries(db.Model):
 class MainEntries(tzsearch.SearchableModel):
   titulo = db.StringProperty()
   kategorya = db.StringProperty()
-  letrato_link = db.StringProperty
+#  letrato_link = db.StringProperty
 
 
 
@@ -173,8 +173,6 @@ class SearchEntries(webapp2.RequestHandler):
     def post(self): 
 
       whatever = self.request.get('term') 
-
-      self.response.out.write(whatever)
 
       results = MainEntries.all().search(whatever).fetch(20)
 
