@@ -27,6 +27,10 @@ from google.appengine.ext import search
 
 ALL_PROPERTIES = []
 
+#TODO improve search
+
+ALL_PROPERTIES = ['titulo']
+
 class SearchableEntity(datastore.Entity):
   """A subclass of datastore.Entity that supports full text indexing.
 

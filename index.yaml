@@ -14,6 +14,14 @@ indexes:
   properties:
   - name: date_created
     direction: desc
+  - name: kategorya
+  - name: letrato_link
+  - name: titulo
+
+- kind: MainEntries
+  properties:
+  - name: date_created
+    direction: desc
   - name: letrato_link
   - name: titulo
 

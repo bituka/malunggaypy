@@ -16,18 +16,20 @@ jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 #models
+'''
 class MainEntries(db.Model):
   titulo = db.StringProperty(required=True, default="wala")
   kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
   letrato_link = db.StringProperty(required=True, default="wala")
-#  uri = db.StringProperty(required=True)
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
-
+'''
 class MainEntries(tzsearch.SearchableModel):
-  titulo = db.StringProperty()
-  kategorya = db.StringProperty()
-#  letrato_link = db.StringProperty
+  titulo = db.StringProperty(required=True, default="wala")
+  kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
+  letrato_link = db.StringProperty(required=True, default="wala")
+  date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
+  date_updated = db.DateProperty()
 
 
 
@@ -40,7 +42,7 @@ class MainPage(webapp2.RequestHandler):
     
     template_values = {
       'mainentries': mainentries,
-    #  'test': records
+    # 'test': records
     }
 
     template = jinja_environment.get_template('index.html')
@@ -59,7 +61,7 @@ class AdminPage(webapp2.RequestHandler):
     #    'mainentries': mainentries,
       }
     '''
-    mainentries = db.GqlQuery("SELECT * FROM MainEntries")
+    mainentries = db.GqlQuery("SELECT titulo, letrato_link, kategorya FROM MainEntries")
     
     template_values = {
       'mainentries': mainentries,
@@ -192,10 +194,6 @@ class SearchEntries(webapp2.RequestHandler):
 
       template = jinja_environment.get_template('search.html')
       self.response.out.write(template.render(template_values))
-
-
-
-
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
