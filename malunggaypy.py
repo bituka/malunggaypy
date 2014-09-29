@@ -196,6 +196,20 @@ class SearchEntries(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
 
 
+class BrowsePage(webapp2.RequestHandler):
+
+    def get(self): 
+
+
+      template_values = {
+       
+      }
+
+      template = jinja_environment.get_template('browse.html')
+      self.response.out.write(template.render(template_values))
+
+
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
                                 ('/editdeleteentries', EditDeleteEntriesPage),
@@ -203,6 +217,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/deletemainentry', DeleteMainEntry),
                                 ('/viewsingleentry', ViewSingleEntry),
                                 ('/searchentries', SearchEntries),
+                                ('/browse', BrowsePage),
                                 ],
                                 debug=True)
                               

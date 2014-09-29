@@ -2,6 +2,7 @@
 {% block titlecontent %}Search Page{% endblock %}
 {% block bodycontent %}  
 
+<!-- CSS improvement for Search entry results -->
  <!-- /.container -->
     <div class="container">
         
@@ -20,10 +21,13 @@
             <div class="col-lg-11">
               {% if results: %}   
                 {% for resulta in results %}
+                <a href="/viewsingleentry?id={{resulta.key()}}">
                 <div class="col-lg-10">
-                    <h3 class="page-header">{{ resulta.titulo }} </h3>
-                    {{ resulta.kategorya }}
+                    {{ resulta.titulo }} <br />
+                    {{ resulta.kategorya }} <br />
+                    <img height="200" width="350" alt="{{ resulta.letrato_link }}" class="img-responsive portfolio-item" src="{{ resulta.letrato_link }}">  <br />
                 </div>
+                </a>
                 {% endfor %}
                {% else: %}
                 <div class="col-lg-10">
@@ -37,6 +41,7 @@
 
         <div class="row">    
             {% for mainentry in mainentries %}
+            
             <div class="col-sm-3 col-xs-6 malunggaypy-entries">
                 <a href="/viewsingleentry?id={{mainentry.key()}}">
                 <h4></h4>
@@ -48,6 +53,7 @@
                 </a>
                 </a>
             </div>
+            
             {% endfor %}
 
             
