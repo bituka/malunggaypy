@@ -66,3 +66,9 @@ content: "\f002";
 * html .ui-autocomplete {
     height: 250px;
 }
+
+.malunggaypy-entries h4, {
+    padding: 0 20px;
+}
+
+/*TODO show hide comments and entries title*/
