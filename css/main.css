@@ -64,6 +64,7 @@ body{
 * we use height instead, but this forces the menu to always be this tall
 */
 * html .ui-autocomplete {
+
   height: 250px;
 }
 
@@ -93,6 +94,7 @@ body{
 .pels{
   display: table;
   margin: 50px auto;
+
 }
 
 /*TODO show hide comments and entries title*/
