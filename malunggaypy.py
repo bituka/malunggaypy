@@ -7,7 +7,9 @@ import urllib
 import sys
 import json
 import tzsearch
+import libs.paging
 
+from paging.paging import *
 from google.appengine.ext import db
 from google.appengine.api import images
 from google.appengine.api import users
@@ -172,9 +174,9 @@ class ViewSingleEntry(webapp2.RequestHandler):
 
 class SearchEntries(webapp2.RequestHandler):
 
-    def post(self): 
+    def post(self):
 
-      whatever = self.request.get('term') 
+      whatever = self.request.get('term')
 
       results = MainEntries.all().search(whatever).fetch(20)
 
@@ -198,7 +200,7 @@ class SearchEntries(webapp2.RequestHandler):
 
 class BrowsePage(webapp2.RequestHandler):
 
-    def get(self): 
+    def get(self):
 
 
       template_values = {
@@ -206,6 +208,19 @@ class BrowsePage(webapp2.RequestHandler):
       }
 
       template = jinja_environment.get_template('browse.html')
+      self.response.out.write(template.render(template_values))
+      
+      
+class BrowsePagePelikula(webapp2.RequestHandler):
+
+    def get(self):
+
+
+      template_values = {
+       
+      }
+
+      template = jinja_environment.get_template('browsepelikula.html')
       self.response.out.write(template.render(template_values))
 
 
@@ -218,6 +233,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/viewsingleentry', ViewSingleEntry),
                                 ('/searchentries', SearchEntries),
                                 ('/browse', BrowsePage),
+                                ('/browse/pelikula', BrowsePagePelikula),
                                 ],
                                 debug=True)
                               

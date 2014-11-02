@@ -1,74 +1,98 @@
 /*
-    Document   : public/assets/css/mainï¼Žcss
-    Created on : 2014-06-24 10:23 PM
-    Author     : stoned-code-warrior
-    Description:
-    Purpose of the stylesheet follows.
-    To change this template use Tools | Templates.
+Document   : public/assets/css/mainï¼Žcss
+Created on : 2014-06-24 10:23 PM
+Author     : stoned-code-warrior
+Description:
+Purpose of the stylesheet follows.
+To change this template use Tools | Templates.
 */
 
 root {
-    display: block;
+  display: block;
 }
 
 body{
-    font-family: 'Indie Flower', cursive;
+  font-family: 'Indie Flower', cursive;
 }
 
 .navbar-brand{
-	padding-top: initial;
+ 	padding-top: initial;
 }
 
 #disqus_thread{
-     position: relative;
+  position: relative;
 }
 #disqus_thread:after{
-     content: "";
-     display: block;
-     height: 165px;
-     width: 100%;
-     position: absolute;
-     bottom: 0px;
-     background:white;
+  content: "";
+  display: block;
+  height: 165px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  background:white;
 }
 
 .fa-search:before {
-content: "\f002";
+  content: "\f002";
 }
 
 /* highlight results */
 .ui-autocomplete span.hl_results {
-    background-color: #ffff66;
+  background-color: #ffff66;
 }
- 
+
 /* loading - the AJAX indicator */
 .ui-autocomplete-loading {
-    background: white url('../img/ui-anim_basic_16x16.gif') right center no-repeat;
+  background: white url('../img/ui-anim_basic_16x16.gif') right center no-repeat;
 }
- 
+
 /* scroll results */
 .ui-autocomplete {
-    max-height: 250px;
-    overflow-y: auto;
-    /* prevent horizontal scrollbar */
-    overflow-x: hidden;
-    /* add padding for vertical scrollbar */
-    padding-right: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+  /* add padding for vertical scrollbar */
+  padding-right: 5px;
 }
- 
+
 .ui-autocomplete li {
-    font-size: 16px;
+  font-size: 16px;
 }
- 
+
 /* IE 6 doesn't support max-height
 * we use height instead, but this forces the menu to always be this tall
 */
 * html .ui-autocomplete {
-    height: 250px;
+  height: 250px;
 }
 
 .malunggaypy-entries h4, {
-    padding: 0 20px;
+  padding: 0 20px;
+}
+
+.cat_links{
+  
+  border-radius: 3px;
+  background-clip: padding-box;
+  font-size: xx-large;
+  padding: 16px;
+  background-color: #444444;
+  background-image: -webkit-linear-gradient(top, #444444, #999999);
+  background-image:         linear-gradient(to bottom, #444444, #999999);
+  color: black;
+  
+}
+
+.cat_links:hover {
+  
+  color: white;
+  
+}
+
+.pels{
+  display: table;
+  margin: 50px auto;
 }
 
 /*TODO show hide comments and entries title*/
