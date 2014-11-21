@@ -222,8 +222,43 @@ class BrowsePagePelikula(webapp2.RequestHandler):
 
       template = jinja_environment.get_template('browsepelikula.html')
       self.response.out.write(template.render(template_values))
+    '''
+    def get(self):          
+      
+      page_num = str(self.request.get('page_num'))
+      nextpage = self.request.get('nextpage')
+      previouspage = self.request.get('previouspage')
+      
+      if (not page_num) or (page_num == ' '): 
+        page_num = 1
+      
+      if nextpage: 
+        page_num = int(page_num) 
+        page_num += 1
+      
+      if previouspage: 
+        page_num = int(page_num)
+        page_num -= 1
 
+      myPagedQuery = PagedQuery(Aso.all(), 10)
 
+      nextPageExists = myPagedQuery.has_page(page_num + 1)
+      previousPageExists = myPagedQuery.has_page(page_num - 1)
+      
+      num_pages = myPagedQuery.page_count()
+      
+      asos = myPagedQuery.fetch_page(page_num)
+      
+
+     # asos = db.GqlQuery("SELECT * FROM Aso")
+
+      template_values = {
+        'asos' : asos,
+        'nextPageExists' : nextPageExists,
+        'previousPageExists' : previousPageExists,
+        'page_num' : page_num
+      }
+      '''
 
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
