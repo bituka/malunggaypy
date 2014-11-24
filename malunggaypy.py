@@ -9,7 +9,7 @@ import json
 import tzsearch
 import libs.paging
 
-from paging.paging import *
+from libs.paging import *
 from google.appengine.ext import db
 from google.appengine.api import images
 from google.appengine.api import users
