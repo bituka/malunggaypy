@@ -94,7 +94,7 @@ class PagedQuery(object):
 	are checked for changes. If changes exist, the cursors corresponding to all
 	subsequent pages are cleared from the cache. 
 	'''
-
+	
 	def __init__(self, query, page_size):
 		'''
 		Constructor for a paged query.

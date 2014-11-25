@@ -18,13 +18,13 @@ jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 #models
-'''
 class MainEntries(db.Model):
   titulo = db.StringProperty(required=True, default="wala")
   kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
   letrato_link = db.StringProperty(required=True, default="wala")
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
+
 '''
 class MainEntries(tzsearch.SearchableModel):
   titulo = db.StringProperty(required=True, default="wala")
@@ -32,7 +32,7 @@ class MainEntries(tzsearch.SearchableModel):
   letrato_link = db.StringProperty(required=True, default="wala")
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
-
+'''
 
 
 # controllers
@@ -215,13 +215,31 @@ class BrowsePagePelikula(webapp2.RequestHandler):
 
     def get(self):
 
+      '''
+      titulo = db.StringProperty(required=True, default="wala")
+      kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
+      letrato_link = db.StringProperty(required=True, default="wala")
+      date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
+      date_updated = db.DateProperty()
+      '''
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pelikula' ORDER BY date_created DESC")
+      cursor = self.request.get('cursor')
+      if cursor: query.with_cursor(start_cursor=cursor)
+      mainentries = query.fetch(30)
+      cursor = query.cursor()
+      
 
       template_values = {
-       
+      
+       'cursor': cursor,
+       'mainentries': mainentries,
+      
       }
+
 
       template = jinja_environment.get_template('browsepelikula.html')
       self.response.out.write(template.render(template_values))
+
     '''
     def get(self):          
       

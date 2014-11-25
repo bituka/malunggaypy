@@ -27,5 +27,13 @@ indexes:
 
 - kind: MainEntries
   properties:
+  - name: kategorya
+  - name: date_created
+    direction: desc
+  - name: letrato_link
+  - name: titulo
+
+- kind: MainEntries
+  properties:
   - name: letrato_link
   - name: titulo

@@ -4,6 +4,20 @@
     <title></title>
   </head>
   <body>
-  test
+  	{% for balance in balances %}
+		<tr class="odd gradeX">
+		<td>{{ balance.transaction_date }}</td>
+		<td>{{ balance.amt }}</td>
+		<td>{{ balance.description }}</td>
+		<td>{{ balance.notes }}</td>
+		<td>{{ balance.ttype }}</td>
+		</tr>
+	{% endfor %}
+	
+	{% if cursor %}
+		<a href="javascript:history.back()">Previous</a>
+		<a href="balance?cursor={{ cursor }}">Next</a>
+	{% endif %}
+		
   </body>
 </html>
