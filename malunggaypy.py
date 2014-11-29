@@ -241,6 +241,7 @@ class BrowsePagePelikula(webapp2.RequestHandler):
       self.response.out.write(template.render(template_values))
 
     '''
+    #TODO
     def get(self):          
       
       page_num = str(self.request.get('page_num'))
@@ -278,6 +279,148 @@ class BrowsePagePelikula(webapp2.RequestHandler):
       }
       '''
 
+class BrowsePagePelikula(webapp2.RequestHandler):
+
+    def get(self):
+
+      
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pelikula' ORDER BY date_created DESC")
+      cursor = self.request.get('cursor')
+      if cursor: query.with_cursor(start_cursor=cursor)
+      mainentries = query.fetch(30)
+      cursor = query.cursor()
+      
+
+      template_values = {
+      
+       'cursor': cursor,
+       'mainentries': mainentries,
+      
+      }
+
+
+      template = jinja_environment.get_template('browsepelikula.html')
+      self.response.out.write(template.render(template_values))
+
+class BrowsePageSeries(webapp2.RequestHandler):
+
+    def get(self):
+
+      
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'series' ORDER BY date_created DESC")
+      cursor = self.request.get('cursor')
+      if cursor: query.with_cursor(start_cursor=cursor)
+      mainentries = query.fetch(30)
+      cursor = query.cursor()
+      
+
+      template_values = {
+      
+       'cursor': cursor,
+       'mainentries': mainentries,
+      
+      }
+
+
+      template = jinja_environment.get_template('browseseries.html')
+      self.response.out.write(template.render(template_values))
+
+class BrowsePagePalabas(webapp2.RequestHandler):
+
+    def get(self):
+
+      
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'palabas' ORDER BY date_created DESC")
+      cursor = self.request.get('cursor')
+      if cursor: query.with_cursor(start_cursor=cursor)
+      mainentries = query.fetch(30)
+      cursor = query.cursor()
+      
+
+      template_values = {
+      
+       'cursor': cursor,
+       'mainentries': mainentries,
+      
+      }
+
+
+      template = jinja_environment.get_template('browsepalabas.html')
+      self.response.out.write(template.render(template_values))
+
+
+class BrowsePageTeleserye(webapp2.RequestHandler):
+
+    def get(self):
+
+      
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'teleserye' ORDER BY date_created DESC")
+      cursor = self.request.get('cursor')
+      if cursor: query.with_cursor(start_cursor=cursor)
+      mainentries = query.fetch(30)
+      cursor = query.cursor()
+      
+
+      template_values = {
+      
+       'cursor': cursor,
+       'mainentries': mainentries,
+      
+      }
+
+
+      template = jinja_environment.get_template('browseteleserye.html')
+      self.response.out.write(template.render(template_values))
+
+
+class BrowsePagePinoyIndie(webapp2.RequestHandler):
+
+    def get(self):
+
+      
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pinoyindie' ORDER BY date_created DESC")
+      cursor = self.request.get('cursor')
+      if cursor: query.with_cursor(start_cursor=cursor)
+      mainentries = query.fetch(30)
+      cursor = query.cursor()
+      
+
+      template_values = {
+      
+       'cursor': cursor,
+       'mainentries': mainentries,
+      
+      }
+
+
+      template = jinja_environment.get_template('browsepinoyindie.html')
+      self.response.out.write(template.render(template_values))
+
+
+class BrowsePageKoreanobela(webapp2.RequestHandler):
+
+    def get(self):
+
+      
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'koreanobela' ORDER BY date_created DESC")
+      cursor = self.request.get('cursor')
+      if cursor: query.with_cursor(start_cursor=cursor)
+      mainentries = query.fetch(30)
+      cursor = query.cursor()
+      
+
+      template_values = {
+      
+       'cursor': cursor,
+       'mainentries': mainentries,
+      
+      }
+
+
+      template = jinja_environment.get_template('browsekoreanobela.html')
+      self.response.out.write(template.render(template_values))
+
+
 app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/admin', AdminPage),
                                 ('/editdeleteentries', EditDeleteEntriesPage),
@@ -286,7 +429,12 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                 ('/viewsingleentry', ViewSingleEntry),
                                 ('/searchentries', SearchEntries),
                                 ('/browse', BrowsePage),
-                                ('/browse/pelikula', BrowsePagePelikula),
+                                ('/pelikula', BrowsePagePelikula),
+                                ('/palabas', BrowsePagePalabas),
+                                ('/teleserye', BrowsePageTeleserye),
+                                ('/pinoyindie', BrowsePagePinoyIndie),
+                                ('/series', BrowsePageSeries),
+                                ('/koreanobela', BrowsePageKoreanobela)
                                 ],
                                 debug=True)
                               

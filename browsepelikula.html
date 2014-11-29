@@ -1,23 +1,63 @@
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title></title>
-  </head>
-  <body>
-  	{% for balance in balances %}
-		<tr class="odd gradeX">
-		<td>{{ balance.transaction_date }}</td>
-		<td>{{ balance.amt }}</td>
-		<td>{{ balance.description }}</td>
-		<td>{{ balance.notes }}</td>
-		<td>{{ balance.ttype }}</td>
-		</tr>
-	{% endfor %}
-	
-	{% if cursor %}
-		<a href="javascript:history.back()">Previous</a>
-		<a href="balance?cursor={{ cursor }}">Next</a>
-	{% endif %}
-		
-  </body>
-</html>
+{% extends "_base.html" %}
+{% block titlecontent %}Malunggay: Pelikula{% endblock %}
+{% block bodycontent %}  
+
+ <!-- /.container qa-->
+    <div class="container">
+        
+		<div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">Mga Pelikula</h3>
+            </div>
+           <!-- {{ test }} -->
+
+        </div>
+        
+        <div class="row">    
+            {% for mainentry in mainentries %}
+            <div class="col-sm-3 col-xs-6 malunggaypy-entries">
+                <a href="/viewsingleentry?id={{mainentry.key()}}">
+                <h4>{{ mainentry.titulo }}</h4>
+                
+                <img height="300" width="500" alt="{{ mainentry.letrato_link }}" class="img-responsive portfolio-item" src="{{ mainentry.letrato_link }}">
+                
+                <a href="/viewsingleentry?id={{mainentry.key()}}#disqus_thread" data-disqus-identifier="{{mainentry.key()}}">
+                    
+                </a>
+                </a>
+            </div>
+            {% endfor %}
+            
+
+            
+        </div>
+
+        <div class="row">   
+          <div class="col-lg-12">
+          {% if cursor %}
+              <div class="paging">
+                <a href="javascript:history.back()">< Previous</a>
+                <a href="pelikula?cursor={{ cursor }}">Next ></a>
+              </div>
+          {% endif %}
+          </div>
+        </div>
+                <!--
+        <div class="row">    
+            {% for mainentry in mainentries %}
+            <div class="col-sm-3 col-xs-6">
+                <h4>{{ mainentry.titulo }}</h4>
+                <a href="#">
+                    <img height="300" width="500" alt="malunggay-photos" class="img-responsive portfolio-item" src="{{ mainentry.letrato_link }}">
+                </a>
+            </div>
+            {% endfor %}
+      
+            
+        </div>
+          -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

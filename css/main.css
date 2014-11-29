@@ -1,7 +1,5 @@
 /*
-Document   : public/assets/css/mainï¼Žcss
-Created on : 2014-06-24 10:23 PM
-Author     : stoned-code-warrior
+Author     : bituks
 Description:
 Purpose of the stylesheet follows.
 To change this template use Tools | Templates.
@@ -96,5 +94,31 @@ body{
   margin: 50px auto;
 
 }
+
+.paging{
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 2em;
+  margin: 30px 30px;
+}
+
+.navbar-collapse{
+  background: whitesmoke;
+}
+
+
+.navbar-brand{
+  background: white;
+  height: 50px;
+
+}
+
+/*
+.center-text{
+  left: 35%;
+  right: 50%;
+  position: relative;
+}
+*/
 
 /*TODO show hide comments and entries title*/
