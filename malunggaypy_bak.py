@@ -4,7 +4,7 @@ import os
 import cgi
 import datetime
 import urllib
-import sys, traceback
+import sys
 import json
 import tzsearch
 import libs.paging
@@ -17,43 +17,7 @@ from google.appengine.api import users
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-'''
-import random
 
-from google.appengine.ext import ndb
-
-
-NUM_SHARDS = 20
-
-
-class SimpleCounterShard(ndb.Model):
-    """Shards for the counter"""
-    count = ndb.IntegerProperty(default=0)
-
-
-def get_count():
-    """Retrieve the value for a given sharded counter.
-
-    Returns:
-        Integer; the cumulative count of all sharded counters.
-    """
-    total = 0
-    for counter in SimpleCounterShard.query():
-        total += counter.count
-    return total
-
-
-@ndb.transactional
-def increment():
-    """Increment the value for a given sharded counter."""
-    shard_string_index = str(random.randint(0, NUM_SHARDS - 1))
-    counter = SimpleCounterShard.get_by_id(shard_string_index)
-    if counter is None:
-        counter = SimpleCounterShard(id=shard_string_index)
-    counter.count += 1
-    counter.put()
-
-'''
 
 #models
 class MainEntries(db.Model):
@@ -261,34 +225,23 @@ class BrowsePagePelikula(webapp2.RequestHandler):
       date_updated = db.DateProperty()
       '''
 
-      #TODO 
-      nextqueryhascontents = False
-      
+      #TODO return count na lang  30
 
       query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pelikula' ORDER BY date_created DESC")
       
       cursor = self.request.get('cursor')
-      if cursor: 
-        query.with_cursor(start_cursor=cursor)
-      
+      if cursor: query.with_cursor(start_cursor=cursor)
       mainentries = query.fetch(30)
-      cursor = query.cursor()
       
+      cursor = query.cursor()
 
-      # check if next query has contents
-      query.with_cursor(start_cursor=cursor)
-      main_e = query.fetch(1)
-
-      if main_e:
-        nextqueryhascontents = True
-      else:
-        nextqueryhascontents = False
+      
 
       template_values = {
       
        'cursor': cursor,
        'mainentries': mainentries,
-       'nextqueryhascontents' : nextqueryhascontents
+       'queryhascontents' : queryhascontents
       
       }
 
@@ -340,8 +293,8 @@ class BrowsePageSeries(webapp2.RequestHandler):
 
     def get(self):
 
-      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'series' ORDER BY date_created DESC")
       
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'series' ORDER BY date_created DESC")
       cursor = self.request.get('cursor')
       if cursor: query.with_cursor(start_cursor=cursor)
       mainentries = query.fetch(30)
