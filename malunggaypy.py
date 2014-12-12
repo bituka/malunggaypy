@@ -79,10 +79,11 @@ class MainPage(webapp2.RequestHandler):
   def get(self):
     
     mainentries = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries ORDER BY date_created DESC LIMIT 30")
-    
+
     template_values = {
       'mainentries': mainentries,
-    # 'test': records
+
+
     }
 
     template = jinja_environment.get_template('index.html')
@@ -110,7 +111,7 @@ class AdminPage(webapp2.RequestHandler):
     template = jinja_environment.get_template('admin.html')
     self.response.out.write(template.render(template_values))
     
-
+ 
     '''
     else:
         
@@ -274,7 +275,6 @@ class BrowsePagePelikula(webapp2.RequestHandler):
       mainentries = query.fetch(30)
       cursor = query.cursor()
       
-
       # check if next query has contents
       query.with_cursor(start_cursor=cursor)
       main_e = query.fetch(1)
@@ -283,6 +283,7 @@ class BrowsePagePelikula(webapp2.RequestHandler):
         nextqueryhascontents = True
       else:
         nextqueryhascontents = False
+
 
       template_values = {
       
@@ -296,44 +297,6 @@ class BrowsePagePelikula(webapp2.RequestHandler):
       template = jinja_environment.get_template('browsepelikula.html')
       self.response.out.write(template.render(template_values))
 
-    '''
-    #TODO
-    def get(self):          
-      
-      page_num = str(self.request.get('page_num'))
-      nextpage = self.request.get('nextpage')
-      previouspage = self.request.get('previouspage')
-      
-      if (not page_num) or (page_num == ' '): 
-        page_num = 1
-      
-      if nextpage: 
-        page_num = int(page_num) 
-        page_num += 1
-      
-      if previouspage: 
-        page_num = int(page_num)
-        page_num -= 1
-
-      myPagedQuery = PagedQuery(Aso.all(), 10)
-
-      nextPageExists = myPagedQuery.has_page(page_num + 1)
-      previousPageExists = myPagedQuery.has_page(page_num - 1)
-      
-      num_pages = myPagedQuery.page_count()
-      
-      asos = myPagedQuery.fetch_page(page_num)
-      
-
-     # asos = db.GqlQuery("SELECT * FROM Aso")
-
-      template_values = {
-        'asos' : asos,
-        'nextPageExists' : nextPageExists,
-        'previousPageExists' : previousPageExists,
-        'page_num' : page_num
-      }
-      '''
 
 
 class BrowsePageSeries(webapp2.RequestHandler):
@@ -347,11 +310,21 @@ class BrowsePageSeries(webapp2.RequestHandler):
       mainentries = query.fetch(30)
       cursor = query.cursor()
       
+      # check if next query has contents
+      query.with_cursor(start_cursor=cursor)
+      main_e = query.fetch(1)
+
+      if main_e:
+        nextqueryhascontents = True
+      else:
+        nextqueryhascontents = False
+
 
       template_values = {
       
        'cursor': cursor,
        'mainentries': mainentries,
+       'nextqueryhascontents' : nextqueryhascontents
       
       }
 
@@ -370,12 +343,20 @@ class BrowsePagePalabas(webapp2.RequestHandler):
       mainentries = query.fetch(30)
       cursor = query.cursor()
       
+      # check if next query has contents
+      query.with_cursor(start_cursor=cursor)
+      main_e = query.fetch(1)
+
+      if main_e:
+        nextqueryhascontents = True
+      else:
+        nextqueryhascontents = False
 
       template_values = {
       
        'cursor': cursor,
        'mainentries': mainentries,
-      
+       'nextqueryhascontents' : nextqueryhascontents
       }
 
 
@@ -394,11 +375,21 @@ class BrowsePageTeleserye(webapp2.RequestHandler):
       mainentries = query.fetch(30)
       cursor = query.cursor()
       
+      # check if next query has contents
+      query.with_cursor(start_cursor=cursor)
+      main_e = query.fetch(1)
+
+      if main_e:
+        nextqueryhascontents = True
+      else:
+        nextqueryhascontents = False
+
 
       template_values = {
       
        'cursor': cursor,
        'mainentries': mainentries,
+       'nextqueryhascontents' : nextqueryhascontents
       
       }
 
@@ -418,11 +409,20 @@ class BrowsePagePinoyIndie(webapp2.RequestHandler):
       mainentries = query.fetch(30)
       cursor = query.cursor()
       
+      # check if next query has contents
+      query.with_cursor(start_cursor=cursor)
+      main_e = query.fetch(1)
+
+      if main_e:
+        nextqueryhascontents = True
+      else:
+        nextqueryhascontents = False
 
       template_values = {
       
        'cursor': cursor,
        'mainentries': mainentries,
+       'nextqueryhascontents' : nextqueryhascontents
       
       }
 
@@ -435,19 +435,28 @@ class BrowsePageKoreanobela(webapp2.RequestHandler):
 
     def get(self):
 
-      
       query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'koreanobela' ORDER BY date_created DESC")
       cursor = self.request.get('cursor')
       if cursor: query.with_cursor(start_cursor=cursor)
       mainentries = query.fetch(30)
       cursor = query.cursor()
+
+
+      # check if next query has contents
+      query.with_cursor(start_cursor=cursor)
+      main_e = query.fetch(1)
+
+      if main_e:
+        nextqueryhascontents = True
+      else:
+        nextqueryhascontents = False
       
 
       template_values = {
       
        'cursor': cursor,
        'mainentries': mainentries,
-      
+       'nextqueryhascontents' : nextqueryhascontents
       }
 
 
