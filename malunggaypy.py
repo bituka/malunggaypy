@@ -17,44 +17,6 @@ from google.appengine.api import users
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-'''
-import random
-
-from google.appengine.ext import ndb
-
-
-NUM_SHARDS = 20
-
-
-class SimpleCounterShard(ndb.Model):
-    """Shards for the counter"""
-    count = ndb.IntegerProperty(default=0)
-
-
-def get_count():
-    """Retrieve the value for a given sharded counter.
-
-    Returns:
-        Integer; the cumulative count of all sharded counters.
-    """
-    total = 0
-    for counter in SimpleCounterShard.query():
-        total += counter.count
-    return total
-
-
-@ndb.transactional
-def increment():
-    """Increment the value for a given sharded counter."""
-    shard_string_index = str(random.randint(0, NUM_SHARDS - 1))
-    counter = SimpleCounterShard.get_by_id(shard_string_index)
-    if counter is None:
-        counter = SimpleCounterShard(id=shard_string_index)
-    counter.count += 1
-    counter.put()
-
-'''
-
 #models
 class MainEntries(db.Model):
   titulo = db.StringProperty(required=True, default="wala")
@@ -71,7 +33,6 @@ class MainEntries(tzsearch.SearchableModel):
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
 '''
-
 
 # controllers
 # TODO display entries to public folder
@@ -92,31 +53,23 @@ class MainPage(webapp2.RequestHandler):
 class AdminPage(webapp2.RequestHandler):
   def get(self):
         
-    '''
     user = users.get_current_user()
+    
     if (user and user.nickname() == 'goryo.webdev'):
+    
+      mainentries = db.GqlQuery("SELECT titulo, letrato_link, kategorya FROM MainEntries")
 
-    #  mainentries = db.GqlQuery("SELECT * FROM MainEntries")
-      
       template_values = {
-    #    'mainentries': mainentries,
+        'mainentries': mainentries,
       }
-    '''
-    mainentries = db.GqlQuery("SELECT titulo, letrato_link, kategorya FROM MainEntries")
-    
-    template_values = {
-      'mainentries': mainentries,
-    }
 
-    template = jinja_environment.get_template('admin.html')
-    self.response.out.write(template.render(template_values))
+      template = jinja_environment.get_template('admin.html')
+      self.response.out.write(template.render(template_values))
     
- 
-    '''
     else:
         
       self.redirect(users.create_login_url(self.request.uri))
-    '''
+    
         
   def post(self):
     
@@ -132,31 +85,24 @@ class AdminPage(webapp2.RequestHandler):
 class EditDeleteEntriesPage(webapp2.RequestHandler):
   def get(self):
         
-    '''
     user = users.get_current_user()
+    
     if (user and user.nickname() == 'goryo.webdev'):
 
-    #  mainentries = db.GqlQuery("SELECT * FROM MainEntries")
-      
-      template_values = {
-    #    'mainentries': mainentries,
-      }
-    '''
-    mainentries = db.GqlQuery("SELECT * FROM MainEntries")
-    
-    template_values = {
-      'mainentries': mainentries,
-    }
+      mainentries = db.GqlQuery("SELECT * FROM MainEntries")
 
-    template = jinja_environment.get_template('editdeleteentries.html')
-    self.response.out.write(template.render(template_values))
+      template_values = {
+        'mainentries': mainentries,
+      }
+
+      template = jinja_environment.get_template('editdeleteentries.html')
+      self.response.out.write(template.render(template_values))
     
     
-    '''
     else:
         
       self.redirect(users.create_login_url(self.request.uri))
-    '''
+    
         
   def post(self):
     mainentries = MainEntries()
@@ -393,7 +339,6 @@ class BrowsePageTeleserye(webapp2.RequestHandler):
       
       }
 
-
       template = jinja_environment.get_template('browseteleserye.html')
       self.response.out.write(template.render(template_values))
 
@@ -401,7 +346,6 @@ class BrowsePageTeleserye(webapp2.RequestHandler):
 class BrowsePagePinoyIndie(webapp2.RequestHandler):
 
     def get(self):
-
       
       query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pinoyindie' ORDER BY date_created DESC")
       cursor = self.request.get('cursor')
