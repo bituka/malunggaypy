@@ -21,6 +21,7 @@ jinja_environment = jinja2.Environment(
 class MainEntries(db.Model):
   titulo = db.StringProperty(required=True, default="wala")
   kategorya = db.StringProperty(required=True, default="wala") #pelikula, teleserye, palabas
+  metadescription = db.StringProperty(required=False, default="wala")
   letrato_link = db.StringProperty(required=True, default="wala")
   date_created = db.DateTimeProperty(auto_now_add=True, default="wala")
   date_updated = db.DateProperty()
@@ -347,7 +348,7 @@ class BrowsePagePinoyIndie(webapp2.RequestHandler):
 
     def get(self):
       
-      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pinoyindie' ORDER BY date_created DESC")
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pinoyindie'")
       cursor = self.request.get('cursor')
       if cursor: query.with_cursor(start_cursor=cursor)
       mainentries = query.fetch(30)
