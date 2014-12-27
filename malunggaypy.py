@@ -17,6 +17,11 @@ from google.appengine.api import users
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+#TODO
+#meta description for SEO
+#make title middle?
+#ads
+
 #models
 class MainEntries(db.Model):
   titulo = db.StringProperty(required=True, default="wala")
@@ -348,7 +353,7 @@ class BrowsePagePinoyIndie(webapp2.RequestHandler):
 
     def get(self):
       
-      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pinoyindie'")
+      query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pinoyindie' ORDER BY date_created DESC")
       cursor = self.request.get('cursor')
       if cursor: query.with_cursor(start_cursor=cursor)
       mainentries = query.fetch(30)
