@@ -115,7 +115,7 @@ class EditDeleteEntriesPage(webapp2.RequestHandler):
     mainentries.titulo = self.request.get('titulo')
     mainentries.kategorya = self.request.get('kategorya')
     mainentries.letrato_link = self.request.get('letrato_link')
-
+	 mainentries.metadescription = self.request.get('metadescription')
     mainentries.put()
     self.redirect('/admin')
 
@@ -138,6 +138,8 @@ class EditSingleEntry(webapp2.RequestHandler):
     mainentries.titulo = self.request.get('titulo')
     mainentries.kategorya = self.request.get('kategorya')
     mainentries.letrato_link = self.request.get('letrato_link')
+    mainentries.metadescription = self.request.get('metadescription')
+    
     mainentries.put()
     self.redirect('/editdeleteentries')
 

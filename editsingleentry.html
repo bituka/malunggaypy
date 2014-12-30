@@ -17,8 +17,8 @@
 	<div class="col-lg-8">
 		<form action="/editsingleentry" enctype="multipart/form-data" method="post">
 		   <input type="hidden" name="id" value="{{mainentry.key()}}" />
-		   <div><label>Titulo:</label><br /><input size="80" type="text" name="titulo" maxlength="200" value="{{mainentry.titulo}}" /></div>
-				<div><label>Kategorya:</label><br />
+		   <div><label>Titulo:</label><br><input size="80" type="text" name="titulo" maxlength="200" value="{{mainentry.titulo}}" /></div>
+				<div><label>Kategorya:</label><br>
 					<select name="kategorya">	
 						<option value="pelikula" {% if mainentry.kategorya == "pelikula" %}selected="selected"{% endif %}>Pelikula</option>
 						<option value="palabas" {% if mainentry.kategorya == "palabas" %}selected="selected"{% endif %}>Palabas</option>
@@ -26,8 +26,11 @@
                  <option value="pinoyindie" {% if mainentry.kategorya == "pinoyindie" %}selected="selected"{% endif %}>Pinoy Indie</option>
 					</select>
 				</div>
-				<div><label>Letrato Link:</label><br /><input type="text" name="letrato_link" maxlength="400" size="90" value="{{mainentry.letrato_link}}" /></div>
+				<div><label>Letrato Link:</label><br><input type="text" name="letrato_link" maxlength="400" size="90" value="{{mainentry.letrato_link}}" /></div>
 				<br>
+        		 <label>Description:</label><br>
+          	 <textarea rows="4" cols="50" name="metadescription">{{mainentry.metadescription}}</textarea>
+           	<br>
 		   <input type="submit" value="submit">
    		</form>
 	</div>

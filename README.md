@@ -3,5 +3,13 @@ One of my pet projects
 Official Site:
 www.malunggaypy.com
 
-Made in Python, Google App Engine, jQuery, and Bootstrap
+Made in: 
+
+Backend:
+Python - Webapp2 framework, 
+Google App Engine  
+
+
+FrontEnd:
+jQuery, and Bootstrap for Front End
 
