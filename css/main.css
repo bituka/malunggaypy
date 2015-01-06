@@ -77,8 +77,8 @@ body{
   font-size: xx-large;
   padding: 16px;
   background-color: #444444;
-  background-image: -webkit-linear-gradient(top, #444444, #999999);
-  background-image:         linear-gradient(to bottom, #444444, #999999);
+  background-image: -webkit-linear-gradient(top, green, #999999);
+  background-image:         linear-gradient(to bottom, green, #999999);
   color: black;
   
 }

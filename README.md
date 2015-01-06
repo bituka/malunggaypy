@@ -11,5 +11,7 @@ Google App Engine
 
 
 FrontEnd:
+Disqus - Commenting System
+Google Analytics
 jQuery, and Bootstrap for Front End
 

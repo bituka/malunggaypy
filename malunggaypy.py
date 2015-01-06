@@ -83,6 +83,7 @@ class AdminPage(webapp2.RequestHandler):
     mainentries.titulo = self.request.get('titulo')
     mainentries.kategorya = self.request.get('kategorya')
     mainentries.letrato_link = self.request.get('letrato_link')
+    mainentries.metadescription = self.request.get('metadescription')
 
     mainentries.put()
     self.redirect('/admin')
@@ -115,7 +116,7 @@ class EditDeleteEntriesPage(webapp2.RequestHandler):
     mainentries.titulo = self.request.get('titulo')
     mainentries.kategorya = self.request.get('kategorya')
     mainentries.letrato_link = self.request.get('letrato_link')
-	 mainentries.metadescription = self.request.get('metadescription')
+    mainentries.metadescription = self.request.get('metadescription')
     mainentries.put()
     self.redirect('/admin')
 
@@ -216,14 +217,14 @@ class BrowsePagePelikula(webapp2.RequestHandler):
       date_updated = db.DateProperty()
       '''
 
-      #TODO 
+      #TODO
       nextqueryhascontents = False
       
 
       query = db.GqlQuery("SELECT titulo, letrato_link FROM MainEntries WHERE kategorya = 'pelikula' ORDER BY date_created DESC")
       
       cursor = self.request.get('cursor')
-      if cursor: 
+      if cursor:
         query.with_cursor(start_cursor=cursor)
       
       mainentries = query.fetch(30)
